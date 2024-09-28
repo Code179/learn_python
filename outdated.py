@@ -9,10 +9,18 @@ def main():
     print(date_formatted)
 
 def convert(date):
-    # Split up string into 3 variables
-    month, day, year = date.split("/")
-    # Return new date with correct format
-    return f"{year}/{month}/{day}"
+    if date[0].isalpha():
+        first, year = date.split(",")
+        month, day = first.split(" ")
+        if month in months:
+            index = months.index(month)
+            month = index + 1
+            return f"{year}/{month}/{day}"
+    else:   
+        # Split up string into 3 variables
+        month, day, year = date.split("/")
+        # Return new date with correct format
+        return f"{year}/{month}/{day}"
 
 if __name__ == "__main__":
     main()
