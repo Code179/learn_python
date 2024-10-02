@@ -1,32 +1,29 @@
-from pyfiglet import Figlet
 import sys
 import random
-
-figlet = Figlet()
-figlet_fonts = figlet.getFonts()
+from pyfiglet import Figlet
+import argparse
 
 def main():
-    str = input("Enter a text: ")
-    render_text(sys.argv, str)
+    # Initialize Figlet instance
+    figlet = Figlet()
 
-def render_random(str):
-    font = random.choice(figlet_fonts)
-    figlet.setFont(font=font)
-    print(figlet.renderText(str))
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Render text in different Figlet fonts")
+    # parser.add_argument("text", help="Text to render")
+    parser.add_argument("-f", "--font", help="Font to use for rendering", choices=figlet.getFonts())
+    args = parser.parse_args()
 
-def render_accurate(str, font):
-    figlet.setFont(font=font)
-    print(figlet.renderText(str))
+    # Setup input
+    text = input("Text: ")
 
-def render_text(argv, str):
-    if len(argv) == 1:
-        render_random(str)
-    elif len(argv) >= 3 and (argv[1] == "-f" or argv[1] == "--font"):
-        render_accurate(str, argv[2])
+    # Determine which font to use
+    if args.font:
+        figlet.setFont(font=args.font)
     else:
-        sys.exit()
+        figlet.setFont(font=random.choice(figlet.getFonts()))
 
-        
-        
+    # Render the text
+    print(figlet.renderText(text))
+
 if __name__ == "__main__":
     main()
