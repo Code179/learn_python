@@ -8,20 +8,25 @@ def main():
     figlet = Figlet()
 
     # Set up argument parser
-    parser = argparse.ArgumentParser(description="Render text in different Figlet fonts")
-    # parser.add_argument("text", help="Text to render")
-    parser.add_argument("-f", "--font", help="Font to use for rendering", choices=figlet.getFonts())
-    args = parser.parse_args()
-
-    # Setup input
-    text = input("Text: ")
-
+    parser = argparse.ArgumentParser(description="Render text in different Figlet fonts", exit_on_error=False)
+    parser.add_argument("-f", "--font", help="Font to use for rendering", nargs="?")    
+    args, unknown = parser.parse_known_args()
+    fonts = figlet.getFonts()
+    
     # Determine which font to use
-    if args.font:
+    if args.font is not None and args.font in fonts:
         figlet.setFont(font=args.font)
+    elif args.font is not None and args.font not in fonts:
+        print("Unknown font")
+        sys.exit()
+    elif unknown:
+        print("Unknown argument")
+        sys.exit()
     else:
         figlet.setFont(font=random.choice(figlet.getFonts()))
-
+    
+    # Setup input
+    text = input("Text: ")
     # Render the text
     print(figlet.renderText(text))
 
