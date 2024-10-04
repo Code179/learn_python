@@ -1,26 +1,31 @@
 import random
 
 def main():
-    number = 0
-    random_number = 0
+    max_number = get_positive_integer("Enter a positive number: ")
+    random_number = random.randint(1, max_number)
+
     guess = 0
+    while guess != random_number:
+        guess = get_positive_integer(f"Guess a number between 1 and {max_number}: ")
+        
+        if guess < random_number:
+            print("Too small!")
+        elif guess > random_number:
+            print("Too large!")
+        else:
+            print("Congratulations!")
 
-    while int(number) <= 0:
-        number = input("Enter a number: ")
-    random_number = random.randint(1, int(number))
-    print(random_number)
-    while int(guess) <= 0:
-        while int(guess) != random_number:
-            guess = input(f"Guess a number between 1 and {number}: ")
-            guess = int(guess)
 
-            if guess < random_number:
-                print("Too small!")
-            elif guess > random_number:
-                print("Too large!")
-            elif guess == random_number:
-                print("Congratulations!")
-                break
+def get_positive_integer(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value > 0:
+                return value
+            else:
+                print("Please enter a positive integer.")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
 
 if __name__ == "__main__":
     main()
