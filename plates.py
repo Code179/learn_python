@@ -17,8 +17,7 @@ def no_number_in_middle(plate):
   for i in range(len(plate)):
     if plate[i].isdigit():
       sliced = plate[i:7]
-      if sliced.isdigit():
-        return True
+      return sliced.isdigit()
     elif plate.isalpha():
       return True
 
@@ -28,7 +27,13 @@ def first_number_not_zero(plate):
 
 
 def no_pun_space_period(plate):
-  return plate.isalnum()
+  print("What is going on")
+  if plate.isalnum(): 
+    print("Hello")
+    return True 
+  else: 
+    print("Jesus")
+    return False
 
 
 def is_valid(plate):
