@@ -14,12 +14,13 @@ def min_max_char(plate):
 
 
 def no_number_in_middle(plate):
-  for i in range(len(plate)):
-    if plate[i].isdigit():
-      sliced = plate[i:7]
-      return sliced.isdigit()
-    elif plate.isalpha():
-      return True
+  found_digit = False
+  for char in plate:
+    if char.isdigit():
+      found_digit = True
+    elif found_digit and char.isalpha():
+      return False
+  return True
 
 
 def first_number_not_zero(plate):
