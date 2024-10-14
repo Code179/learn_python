@@ -7,16 +7,19 @@ def main():
       print(fuel)
       break
 
-def convert(fraction):
+def convert(fraction, testing=False):
   try:
     left, right = map(int, fraction.split("/"))
-    if left > right: raise ValueError("Invalid fraction")
+    if left > right: 
+      raise ValueError("Invalid Fraction")
     fuel = round((left / right) * 100)
     return fuel
   except ValueError:
-    print("Invalid fraction")
+    print("Invalid Fraction")
+    if testing: raise ValueError("Invalid Fraction")
   except ZeroDivisionError:
     print("Cant divide by 0")
+    if testing: raise ZeroDivisionError
 
 def gauge(percentage):
   if percentage >= 99:
