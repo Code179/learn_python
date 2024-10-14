@@ -2,8 +2,8 @@ import sys
 
 def main():
   filename = sys.argv[1]
-  code_count = count_lines_of_code(filename)
-  print(code_count)
+  total_lines_of_code = count_lines_of_code(filename)
+  print(total_lines_of_code)
 
 def count_lines_of_code(filename):
   lines_of_code = 0
