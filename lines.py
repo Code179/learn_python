@@ -29,17 +29,20 @@ def count_lines_of_code(filename):
     return lines_of_code
   # If the file does not exist then exit with "File not Found" as custom error message
   except FileNotFoundError:
-    sys.exit("File not found")
+    raise FileNotFoundError("File not found")
 
 def get_filename_from_argv(args):
-  if len(args) > 2:
-    sys.exit("Too many arguments")
-  elif len(args) < 2:
-    sys.exit("Too few arguments")
-  elif len(args) == 2 and not args[1].endswith(".py"):
-    sys.exit("Not a Python File")
-  else:
-    return args[1]
+  try:
+    if len(args) > 2:
+      raise sys.exit("Too many arguments")
+    elif len(args) < 2:
+      raise sys.exit("Too few arguments")
+    elif len(args) == 2 and not args[1].endswith(".py"):
+      raise sys.exit("Not a Python File")
+    else:
+      return args[1]
+  except SystemExit as e:
+    raise sys.exit(e)
 
 
 if __name__ == "__main__":
