@@ -1,4 +1,5 @@
 import sys
+from tabulate import tabulate
 
 def main():
     filename = get_filename_from_argv(sys.argv)
@@ -9,8 +10,8 @@ def get_filename_from_argv(args):
       raise sys.exit("Too many arguments")
     elif len(args) < 2:
       raise sys.exit("Too few arguments")
-    elif len(args) == 2 and not args[1].endswith(".py"):
-      raise sys.exit("Not a Python File")
+    elif len(args) == 2 and not args[1].endswith(".csv"):
+      raise sys.exit("Not a CSV File")
     else:
       return args[1]
   except SystemExit as e:
