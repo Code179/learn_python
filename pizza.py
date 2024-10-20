@@ -11,7 +11,9 @@ def format_list(filename):
     try:
       with open(filename) as file:
         reader = csv.reader(file)
+        # Give us the first list / the first row 
         headers = next(reader)
+        print(headers)
         return tabulate(reader, headers, tablefmt="grid")
     except FileNotFoundError:
       sys.exit("File Not Found")
