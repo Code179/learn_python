@@ -1,8 +1,14 @@
 import sys
 from tabulate import tabulate
+import csv
 
 def main():
     filename = get_filename_from_argv(sys.argv)
+    with open(filename) as file:
+      reader = csv.reader(file)
+      headers = "firstrow"
+      print(tabulate(reader, headers, tablefmt="grid"))
+      
 
 def get_filename_from_argv(args):
   try:
