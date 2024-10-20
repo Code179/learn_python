@@ -3,7 +3,7 @@ from tabulate import tabulate
 import csv
 
 def main():
-    filename = get_filename_from_argv(sys.argv)  
+    filename = handle_cmd_args(sys.argv)  
     tabulated = format_list(filename)
     print(tabulated)
 
@@ -16,7 +16,7 @@ def format_list(filename):
     except FileNotFoundError:
       sys.exit("File Not Found")
 
-def get_filename_from_argv(args):
+def handle_cmd_args(args):
   try:
     if len(args) > 2:
       raise sys.exit("Too many arguments")
