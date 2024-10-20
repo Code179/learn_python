@@ -3,12 +3,18 @@ from tabulate import tabulate
 import csv
 
 def main():
-    filename = get_filename_from_argv(sys.argv)
-    with open(filename) as file:
-      reader = csv.reader(file)
-      headers = "firstrow"
-      print(tabulate(reader, headers, tablefmt="grid"))
-      
+    filename = get_filename_from_argv(sys.argv)  
+    tabulated = format_list(filename)
+    print(tabulated)
+
+def format_list(filename):
+    try:
+      with open(filename) as file:
+        reader = csv.reader(file)
+        headers = next(reader)
+        return tabulate(reader, headers, tablefmt="grid")
+    except FileNotFoundError:
+      sys.exit("File Not Found")
 
 def get_filename_from_argv(args):
   try:
