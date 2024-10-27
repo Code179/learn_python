@@ -1,12 +1,8 @@
-import sys
 import os
+import sys
 from PIL import Image, ImageOps
 
-# TO-DO: Write function that handles FileNotFound
-# TO-DO: Waschmaschine entleeren
-
 def main():
-    handle_cmd_args(sys.argv)
     input_image, output_image = get_cmd_args(sys.argv)
     try:
       shirt = Image.open("shirt.jpg")
@@ -19,24 +15,23 @@ def main():
       sys.exit("File not found while opening")
 
 def get_cmd_args(args) -> tuple:
-  return (args[1], args[2])
+    """Get command line arguments and return input and output image file names."""
+    if len(args) != 3:
+        raise ValueError("Usage: script.py <input_image> <output_image>")
+    
+    input_image, output_image = args[1], args[2]
+    validate_file_extensions(input_image, output_image)
+    return input_image, output_image
 
-def handle_cmd_args(args):
-  _, input_image_ext = os.path.splitext(args[1])
-  _, output_image_ext = os.path.splitext(args[2])
-  try:
-    if len(args) > 3:
-      raise sys.exit("Too many arguments")
-    elif len(args) < 3:
-      raise sys.exit("Too few arguments")
-    elif not input_image_ext.lower().endswith((".jpg", ".jpeg", ".png")) or not output_image_ext.lower().endswith((".jpg", ".jpeg", ".png")):
-      raise sys.exit("Not a JPG or PNG File")
-    elif output_image_ext != input_image_ext:
-      raise sys.exit("Output ext different than input ext") 
-    else:
-      return args[1], args[2]
-  except SystemExit as e:
-    raise sys.exit(e)
+def validate_file_extensions(input_image: str, output_image: str):
+    """Validate the file extensions of the input and output images."""
+    input_ext = os.path.splitext(input_image)[1].lower()
+    output_ext = os.path.splitext(output_image)[1].lower()
+    
+    if not input_ext.endswith((".jpg", ".jpeg", ".png")) or not output_ext.endswith((".jpg", ".jpeg", ".png")):
+        raise ValueError("Both input and output must be JPG or PNG files.")
+    if output_ext != input_ext:
+        raise ValueError("Output file extension must match input file extension.")
 
 if __name__ == "__main__":
     main()
