@@ -1,9 +1,24 @@
 import sys
 import os
+from PIL import Image, ImageOps
+
+# TO-DO: Write function that handles FileNotFound
+# TO-DO: Waschmaschine entleeren
 
 def main():
-    print("Hello, World")
     handle_cmd_args(sys.argv)
+    output_image = sys.argv[2]
+    input_image = sys.argv[1]
+
+    try:
+      shirt = Image.open("shirt.jpg")
+      with Image.open(input_image) as im:
+        shirt_size = shirt.size
+        input_image_cropped = ImageOps.fit(im,shirt_size)
+        input_image_cropped.paste(shirt, shirt)
+        input_image_cropped.save(output_image)
+    except FileNotFoundError:
+      sys.exit("File not found while opening")
 
 def handle_cmd_args(args):
   _, input_image_ext = os.path.splitext(args[1])
