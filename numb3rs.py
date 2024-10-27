@@ -18,14 +18,7 @@ def validate(ip):
     # Combine the octet pattern with dots
     regex = rf"^{octet_range}\.{octet_range}\.{octet_range}\.{octet_range}$"
 
-    if re.search(regex, ip):
-        return True
-    else:
-        return False
-
-
-...
-
+    return True if re.search(regex, ip) else False
 
 if __name__ == "__main__":
     main()
