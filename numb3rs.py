@@ -12,7 +12,12 @@ def main():
 
 
 def validate(ip):
-    regex = r"^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)$"
+    # Define the regex patterns for each octet
+    octet_range = r"(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?|0)"
+
+    # Combine the octet pattern with dots
+    regex = rf"^{octet_range}\.{octet_range}\.{octet_range}\.{octet_range}$"
+
     if re.search(regex, ip):
         return True
     else:
