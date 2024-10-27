@@ -7,9 +7,7 @@ from PIL import Image, ImageOps
 
 def main():
     handle_cmd_args(sys.argv)
-    output_image = sys.argv[2]
-    input_image = sys.argv[1]
-
+    input_image, output_image = get_cmd_args(sys.argv)
     try:
       shirt = Image.open("shirt.jpg")
       with Image.open(input_image) as im:
@@ -19,6 +17,9 @@ def main():
         input_image_cropped.save(output_image)
     except FileNotFoundError:
       sys.exit("File not found while opening")
+
+def get_cmd_args(args) -> tuple:
+  return (args[1], args[2])
 
 def handle_cmd_args(args):
   _, input_image_ext = os.path.splitext(args[1])
