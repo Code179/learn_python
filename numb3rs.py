@@ -1,5 +1,4 @@
 import re
-import sys
 
 # Format of IPv4 Address: #.#.#.#.
 # Validate Function expects a string in that format
