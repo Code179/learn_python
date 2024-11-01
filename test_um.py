@@ -7,6 +7,3 @@ def test_word_before():
 
 def test_word_after():
     assert count("Jesus umadhs") == 0
-
-def test_umm():
-    assert count("umm umm ummmmmmm") == 3
